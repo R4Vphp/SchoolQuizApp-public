@@ -1,0 +1,185 @@
+ul:empty::after{
+	background: var(--base300);
+	font-weight: bold;
+	padding: 0em .75em;
+	clip-path: polygon(.5em 0%, calc(100% - .5em) 0%, 100% 50%, calc(100% - .5em) 100%, .5em 100%, 0% 50%);
+	content: "Lista jest pusta";
+}
+
+.star-point{
+
+	position: relative;
+	cursor: pointer;
+	aspect-ratio: 1;
+	appearance: none;
+	height: 5em;
+	width: 5em;
+	margin: 2em auto;
+	pointer-events: none;
+	border-radius: 50%;
+}
+.star-point-selection:has(.star-point:checked) {
+	--bg: var(--primaryY);
+}
+
+.star-point::before, .star-point::after{
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: all;
+	transition: all .1s;
+}
+
+.star-point::before{
+	background-color: var(--base100);
+	border-radius: 50%;
+	border: .2em solid var(--base300);
+}
+.star-point::after{
+	background-color: var(--bg, var(--base400));
+	clip-path: polygon(50% 0%, 67% 35%, 98% 35%, 73% 60%, 79% 91%, 50% 75%, 21% 91%, 26% 60%, 2% 35%, 33% 35%);
+	scale: .7;
+}
+.star-point:checked ~ .star-point {
+	--bg: var(--base400);
+}
+.star-point:hover::after, .star-point:focus-visible::after {
+	opacity: .5;
+}
+.star-point:active::after{
+	scale: .8;
+}
+
+.star-point-selection:has(.star-point) + .star-point-description::after{
+	content: attr(data-vote-0);
+}
+.star-point-selection:has(.star-point:checked[value="1"]) + .star-point-description::after {
+	content: attr(data-vote-1);
+}
+.star-point-selection:has(.star-point:checked[value="2"]) + .star-point-description::after {
+	content: attr(data-vote-2);
+}
+.star-point-selection:has(.star-point:checked[value="3"]) + .star-point-description::after {
+	content: attr(data-vote-3);
+}
+.star-point-selection:has(.star-point:checked[value="4"]) + .star-point-description::after {
+	content: attr(data-vote-4);
+}
+.star-point-selection:has(.star-point:checked[value="5"]) + .star-point-description::after {
+	content: attr(data-vote-5);
+}
+
+@property --progressBar {
+	syntax: "<percentage>";
+	inherits: true;
+	initial-value: 100%;
+}
+
+.linear-clock{
+
+	width: 60%;
+	height: .25em;
+	position: sticky;
+	background-color: var(--primaryB);
+	background-image: linear-gradient(90deg, var(--primaryB) var(--progressBar), var(--base400) var(--progressBar));
+	animation: linearClock 1000s linear forwards;
+	transform-origin: left;
+	transform: scale(1);
+}
+@keyframes linearClock {
+
+	to{
+		--progressBar: 0%;
+	}
+}
+
+[data-test]::after{
+	content: attr(data-test);
+}
+
+[data-counter-info]:not([data-counter-info="0"])::after{
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	aspect-ratio: 1;
+	width: 1em;
+	transform: translate(25%, -25%);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: .75em;
+	border-radius: 100%;
+	padding: .75em;
+
+	background-color: var(--primaryR);
+	color: var(--base100);
+
+	content: attr(data-counter-info);
+	overflow: hidden;
+	pointer-events: none;
+}
+
+#intro{
+	counter-reset: missingAnswers;
+}
+.question:not(:has(input:checked)) {
+
+	counter-increment: missingAnswers;
+}
+
+.missingAnswer:checked{
+
+	counter-reset: missingAnswers;
+	counter-increment: missingAnswers;
+}
+
+.missingAnswers::after {
+
+	position: absolute;
+	top: 0;
+	right: 0;
+	aspect-ratio: 1;
+	
+	transform: translate(25%, -25%);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	font-size: .75em;
+	font-weight: bold;
+	border-radius: 100%;
+	padding: .5em;
+
+	background-color: var(--primaryR);
+	color: var(--base100);
+	border: .1em solid var(--base100);
+
+	content: counter(missingAnswers);
+	overflow: hidden;
+	pointer-events: none;
+}
+[popover]{
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+[popover]::backdrop{
+	animation: backdrop-blur 2s alternate infinite;
+}
+@keyframes backdrop-blur {
+	from{
+		backdrop-filter: blur(.5rem) brightness(25%);
+	}
+	to{
+		backdrop-filter: blur(.30rem) brightness(20%);
+	}
+}
+
+body:has(:popover-open){	
+	overflow: hidden;
+	user-select: none;
+}

@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css?family=Luckiest Guy");
+@import url("https://fonts.googleapis.com/css?family=Hammersmith One");
+/* @import url("https://fonts.googleapis.com/css?family=Libre Barcode 128 Text"); */
+
+:root {
+	--base100: #ffffff;
+	--base150: #efefef44;
+	--base200: #efefef;
+	--base300: #dfdfdf;
+	--base400: #9f9f9f;
+	--base500: #6f6f6f;
+	
+	--primaryY: #fdbb08;
+	--primaryB: #0253bc;
+	--primaryR: #dd5555;
+
+	--accentB: #b3d4fe;
+
+	--shadow-bundle-1:
+		0 0 .5em .1em var(--base500);
+	--shadow-bundle-2: 
+		var(--shadow-bundle-1),
+		inset 0 0 0 .15em var(--base200),
+		inset 0 0 0 .3em var(--base300);;
+	--shadow-bundle-3:
+		var(--shadow-bundle-1),
+		inset 0 0 0 .15em var(--base200),
+		inset 0 0 0 .45em var(--base300),
+		inset 0 0 0 .6em var(--base200),
+		inset 0 0 0 .75em var(--base300);
+
+	--shadow-blackout: 0 0 0 100vw #000c;
+}
+::selection {
+	background-color: var(--primaryB);
+	color: var(--base100);
+}
+b::selection, a::selection, span::selection {
+	color: var(--primaryY);
+}
+
+::placeholder {
+	font-family: "Courier New";
+	text-align: center;
+	letter-spacing: .1em;
+	opacity: .25;
+}
+
+::-webkit-scrollbar {
+	width: 16px;
+}
+::-webkit-scrollbar-track {
+    background-color: var(--base300);
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: var(--base400);
+	border: 4px solid var(--base300);
+	border-top: none;
+	border-bottom: none;
+}
+::-webkit-scrollbar-thumb:active{
+	background-color: var(--base500);
+}
+::-webkit-scrollbar-button{
+    background-color: var(--base400);
+	border: 4px solid var(--base300);
+}
+::-webkit-scrollbar-button:active{
+	background-color: var(--base500);
+}
+
+.horizontal-order {
+    position: relative;
+	width: fit-content;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: .5em;
+	margin: 0 auto;
+}
